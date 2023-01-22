@@ -1,28 +1,22 @@
-from _pytest.runner import runtestprotocol #as og_runtestprotocol
-
-# def runtestprotocol(item , nextitem , log):
-# 	if getattr(item , "reports" , None) is not None:
-# 		return item.reports 
-# 	return og_runtestprotocol(item= item , nextitem=nextitem , log= log)
+from _pytest.runner import runtestprotocol 
 
 
 def dummy_run(item) :
 	item.ihook.pytest_runtest_logstart(nodeid=item.nodeid, location=item.location)
 	for report in item.reports :
 		item.ihook.pytest_runtest_logreport(report=report)
-		# _remove_failed_setup_state_from_session(item)
+		_remove_failed_setup_state_from_session(item)
 		# _remove_cached_results_from_fixtures(item)
 	item.ihook.pytest_runtest_logfinish(nodeid=item.nodeid, location=item.location)
 
 
 
 def pytest_runtest_protocol(item, nextitem):
-	# if item.cls is None :
-	# 	return False
+	if item.cls is None :
+		return False
 	
 	if getattr(item , "reports" , None) is not None :
-		# runtestprotocol(item= item , nextitem= nextitem , log=False)
-		# dummy_run(item)
+		dummy_run(item)
 		return True
 	
 	siblings = [item]
@@ -31,37 +25,26 @@ def pytest_runtest_protocol(item, nextitem):
 	for i in items[index+1:]:
 		siblings.append(i)
 		if item.cls  != i.cls :
+			siblings.append(i)
 			break
 	if siblings[-1].cls == item.cls :
 		siblings.append(None)
 
-	for i in range(len(siblings)-1):
-		siblings[i].reports = runtestprotocol(siblings[i] , nextitem=siblings[i+1] , log=False)
-		dummy_run(siblings[i])
-		# break
-	
-	# item.session._setupstate.teardown_exact(None)
-	
-	
 
-	# item.reports = runtestprotocol(item, nextitem=nextitem , log=False)
-	# dummy_run(item)
+	run_count = 1
+	all_passed = False
+	while not all_passed and run_count <= 2: 
+		run_count += 1
+		all_passed = True
+		for i in range(len(siblings)-1):
+			siblings[i].reports = runtestprotocol(siblings[i] , nextitem=siblings[i+1] , log=False)			
+			all_passed = all_passed and all([rep.passed for rep in siblings[i].reports ])		
+			if not all_passed :
+				_remove_failed_setup_state_from_session(siblings[i])
 
-	# if nextitem is None:
-	# 	print("="*37)
-	# 	items = item.session.items
-	# 	for i in range(len(items)-1):
-	# 		items[i].reports = runtestprotocol(items[i], nextitem=items[i+1] , log=False)
-	# 		dummy_run(items[i])
-	# 	items[-1].reports = runtestprotocol(items[-1], nextitem=nextitem , log=False)
-	# 	dummy_run(items[-1])
-			
+	dummy_run(item)
 	return True
 
-def pytest_runtest_teardown(item , nextitem ):
-	a   = [ ]
-	# if item.nodeid == 'test_one.py::TestOne::test_1c':
-		# a = []
 
 def _remove_failed_setup_state_from_session(item):
 	"""
