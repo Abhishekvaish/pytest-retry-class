@@ -2,3 +2,7 @@ __pycache__/
 .pytest_cache/
 .vscode/
 venv/
+pytest_retry_class.egg-info/
+build/
+dist/
+.env
