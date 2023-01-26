@@ -1,4 +1,4 @@
-# WIP: Pytest-rerun-class
+# WIP: Pytest-retry-class
 
 
 Pytest rerun/retry class if any test inside the class fails 
