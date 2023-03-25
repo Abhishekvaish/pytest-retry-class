@@ -1,4 +1,4 @@
-# WIP: Pytest-retry-class
+# Pytest-retry-class
 
 
 Pytest rerun/retry class if any test inside the class fails 
@@ -9,6 +9,16 @@ Pytest rerun/retry class if any test inside the class fails
 
 
 https://test.pypi.org/project/pytest-retry-class/0.1/
+
+## how to install 
+```sh
+pip install pytest-retry-class
+```
+
+## how to run with pytest
+```sh
+pytest --maxretry 2 test.py
+```
 
 ## how to run examples 
 1. **[pytest-xdist](example/pytest-dependency-support/tests)**
