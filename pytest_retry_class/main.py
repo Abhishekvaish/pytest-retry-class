@@ -26,10 +26,9 @@ def pytest_runtest_protocol(item, nextitem):
 	items = item.session.items
 	index = items.index(item)
 	for i in items[index+1:]:
-		siblings.append(i)
 		if item.cls != i.cls:
-			siblings.append(i)
 			break
+		siblings.append(i)
 	if siblings[-1].cls == item.cls:
 		siblings.append(None)
 
