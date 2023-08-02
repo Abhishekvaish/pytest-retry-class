@@ -2,11 +2,11 @@ from setuptools import setup
 
 setup(
     name="pytest-retry-class",
-	author="Abhishek Vaish",
+	author="Abhishek Vaish, Jarosław Tanistra",
 	version='0.1',
-	author_email="vaishabhishek104@gmail.com" , 
+	author_email="vaishabhishek104@gmail.com, jaroslaw.tanistra@gmail.com" ,
 	keywords=["python","pytest","retry class" , "retry failed test" ],
-	url='https://github.com/Abhishekvaish/pytest-retry-class',
+	url='https://github.com/tanistra/pytest-retry-class',
 	license="MIT",
 	description="A pytest plugin to rerun entire class on failure",
 	long_description="A pytest plugin that reruns all the tests inside a class if any test inside the class fails",
