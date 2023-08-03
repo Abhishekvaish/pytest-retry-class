@@ -51,9 +51,9 @@ def pytest_runtest_protocol(item, nextitem):
     max_run_count = int(
         (config.getoption("maxretry") or config.getini("maxretry")) or 1
     )
-    cmd_retry_arg = config.getoption("retry_on_exception") or ""
+    cmd_retry_arg = config.getoption("retry_on_exception") or None
     handle_exceptions = (
-            cmd_retry_arg.strip("[]").split(", ")
+            cmd_retry_arg.strip("[]").split(", ") if cmd_retry_arg else []
             or config.getini("retry_on_exception")
     )
     exceptions = []
@@ -66,7 +66,7 @@ def pytest_runtest_protocol(item, nextitem):
                 [rep.passed for rep in siblings[i].reports])
             failed_steps = [rep for rep in siblings[i].reports if rep.failed]
             exceptions += [
-                step.longrepr.reprcrash.message.split(":")[0]
+                step.longrepr.reprcrash.message.split(":")[0].split(".")[-1]
                 for step in failed_steps
             ]
             if not all_passed:
