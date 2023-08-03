@@ -35,7 +35,7 @@ retry_on_exception = AssertionError
 Warning: CMD line arguments will override the pytest.ini file.
 ## how to run examples 
 
-```sh
+
 1. **[pytest-xdist](example/pytest-dependency-support/tests)**
 ```sh
 pytest example/pytest-xdist-support/tests
