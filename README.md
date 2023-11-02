@@ -8,7 +8,7 @@ Pytest rerun/retry class if any test inside the class fails
 >pytest retry failure 
 
 
-https://test.pypi.org/project/pytest-retry-class/0.1/
+https://pypi.org/project/pytest-retry-class/0.1/
 
 ## how to install 
 ```sh
