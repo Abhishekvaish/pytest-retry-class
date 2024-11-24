@@ -8,7 +8,8 @@ Pytest rerun/retry class if any test inside the class fails
 >pytest retry failure 
 
 
-https://pypi.org/project/pytest-retry-class/0.1/
+https://pypi.org/project/pytest-retry-class/0.2/
+
 
 ## how to install 
 ```sh
@@ -17,10 +18,25 @@ pip install pytest-retry-class
 
 ## how to run with pytest
 ```sh
-pytest --maxretry 2 test.py
-```
+pytest --maxretry 2 --retry_on_exception "[AssertionError, DBError]" test.py
 
+```
+Where:
+- `--maxretry` is the number of times to retry a failed test [default: 1]
+- `--retry_on_exception` is a list of exceptions to retry on [default: all exceptions]
+
+## how to run with pytest.ini
+You can also set the retry count and exceptions in pytest.ini file
+```text
+[pytest]
+max_retry = 2
+retry_on_exception = AssertionError
+                     DBError
+```
+Warning: CMD line arguments will override the pytest.ini file.
 ## how to run examples 
+
+
 1. **[pytest-xdist](example/pytest-dependency-support/tests)**
 ```sh
 pytest example/pytest-xdist-support/tests
