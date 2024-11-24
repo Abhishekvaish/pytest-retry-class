@@ -8,7 +8,7 @@ Pytest rerun/retry class if any test inside the class fails
 >pytest retry failure 
 
 
-https://pypi.org/project/pytest-retry-class/0.2/
+https://pypi.org/project/pytest-retry-class/0.2.0/
 
 
 ## how to install 
@@ -29,7 +29,7 @@ Where:
 You can also set the retry count and exceptions in pytest.ini file
 ```text
 [pytest]
-max_retry = 2
+maxretry = 2
 retry_on_exception = AssertionError
                      DBError
 ```

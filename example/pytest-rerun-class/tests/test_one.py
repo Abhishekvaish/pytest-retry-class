@@ -2,7 +2,8 @@ class TestOne:
     count = 0
 
     def test_1a(self):
-        assert True
+        x = 1 / TestOne.count
+        assert x == 1
 
     def test_1b(self):
         TestOne.count += 1

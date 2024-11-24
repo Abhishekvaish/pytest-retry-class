@@ -59,8 +59,8 @@ def pytest_runtest_protocol(item, nextitem):
         if cmd_retry_arg
         else [] or config.getini("retry_on_exception")
     )
-    exceptions = []
     while not all_passed and run_count <= max_run_count:
+        exceptions = []
         all_passed = True
         for i in range(len(siblings) - 1):
             siblings[i].reports = runtestprotocol(
